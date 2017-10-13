@@ -1,0 +1,108 @@
+Required libraries : Java 1.8 JDK, Java-hamcrest-2.0.0.0.jar as well as Junit 4.12.jar
+
+
+
+Design Methodology
+======================================
+The task is assigned to design a credit card processing application, my main approach is try to modularize this framework as much as possible.
+I've broken down the application to 5 main classes - ActionType, BasicAccount, CreditCardSystem, LuhnAlgorithm and TransactionProcessor (plus few additional classes )
+make it reusable as well as expand the features of this application (ex: permission security, parent child card relationship).  Main class is CreditCardSystem.java, it uses a map collection
+to hold the record of credit card holders and it'll take actions from file path as well as commandline and feed these action commands ( an ActionType object ) into array list container and process in a batch,
+This arrayList of commands potentially could also pass it to a separate network api layer or logging api layer for cloud level operation or logging services.
+TransactionProcessor class is the main consumer of ActionType object, it reads these actionType objects and process based on what the commands says ( Create, update, delete etc.).
+A separate test codes has also been written to demonstrate TDD and I'm a strong believer in TDD, it is a better way to help other developers understand the design structure as well as
+saving time for running tests and finding bugs comparing to traditional software development approach.  Hope you will enjoy my code.  Thanks!
+
+
+How to run this application
+=====================================
+Please use commandprompt window and go BrainTreeCoding/out/artifacts/BrainTreeCoding_jar/ directory
+type java -jar BrainTreeCoding.jar and application will fire up
+
+Type 1 then type TestFile.txt as file path, this application should processed the command records then you can type 3 to print records.
+
+You can Type 2 for trying to feed commands from the terminal one by one as well and then type 3 to print records.
+
+
+
+====================================
+Main Program
+CreditCardSystem.java
+
+When you fire up the program ex: java -jar BrainTreeCoding.jar the following screen will displayed
+=======================================
+
+ Please Enter command:
+
+           Feed from file 1 -
+ Feed from command prompt 2 -
+             Print Report 3 -
+            Clear Records 4 -
+              Exit System 5 -
+=======================================
+
+The state of the program works this way
+
+1 (feed from file ) -> Insert File Path in the prompt -> Records are processed and held in the memory.
+
+
+2 (feed from cp) -> Insert record one at a time in the prompt (ex: Add Lisa 5454545454545454 $3000)
+   -> Record is processed and held in the memory.
+
+3 Print report -> A report will be generated and output in the command prompt area
+
+
+4 Clean the Records -> all credit card holder records will be wipped out clean.
+
+5 Exit the System.
+
+
+
+
+################################################################
+ActionType.Java
+
+This class defines supported operation commands (ex: add, charge, credit ).
+It is also a temporary object holding the action needs to be done, consumer
+of the object is TransactionProcessor.java
+
+
+#################################################################
+
+BasicAccount.java
+
+This is an account object holding credit card holder information (ex: name, balance, credit line)
+
+##################################################################
+
+LuhnAlgorithm.java
+
+This is the class handles LuhnAlgorithm check.
+
+##################################################################
+
+ParentAccount.java
+
+This is an parent account object potentially could be used to store self
+credit data + children or dependant's credit data
+
+
+###################################################################
+
+TransactionProcessor.java
+
+This is the main processor of the system, it takes list of ActionType objects and
+process it and store data into BasicAccount object.
+
+
+###################################################################
+
+SecurityPermission.java
+
+This is the main function defines security permission level.
+
+
+
+
+
+
