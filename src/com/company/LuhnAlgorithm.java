@@ -46,13 +46,9 @@ public class LuhnAlgorithm {
     public static boolean isAValidCardSpeed(String ccNum) throws IllegalArgumentException {
 
 
-        if (ccNum.length() < 16 && ccNum.length() > 19)
+        if (ccNum.length() < 16 || ccNum.length() > 19)
             throw new IllegalArgumentException("invalid Credit Card Number");
 
-        StringBuffer oddNum = new StringBuffer();
-        StringBuffer evenNum = new StringBuffer();
-        oddNum.setLength(0);
-        evenNum.setLength(0);
         int oddSum = 0;
         int evenSum = 0;
 
@@ -61,7 +57,7 @@ public class LuhnAlgorithm {
             if (counter % 2 == 0) {
                 // add to evenNum
 
-                int temp = Integer.valueOf(ccNum.charAt(counter) + "").intValue() * 2;
+                int temp = Character.getNumericValue(ccNum.charAt(counter)) * 2;
                 if (temp >= 10)
                     temp += -9;
 
@@ -70,7 +66,7 @@ public class LuhnAlgorithm {
             } else {
                 // add to oddNum
 
-                oddSum += Integer.valueOf(ccNum.charAt(counter) + "").intValue();
+                oddSum += Character.getNumericValue(ccNum.charAt(counter));
 
             }
 
